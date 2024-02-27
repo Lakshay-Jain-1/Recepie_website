@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form
+      id="form"
+      method="post"
+      action="/api/newrecepie"
+      enctype="multipart/form-data"
+    >
+      <div>
+        <input type="file" name="image" />
+        <label> Image</label>
+      </div>
+
+      <div>
+        <input type="file" name="steps" />
+        <label>steps </label>
+      </div>
+
+      <div>
+        <input type="file" name="ingredients" />
+        <label>Ingredients</label>
+      </div>
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <script>
+      document.getElementById("form").addEventListener("submit", (event) => {
+        //  event.preventDefault()
+        /* 
+          if i uncomment //  event.preventDefault() it will not refresh bage and send data to server , then now how we achieve sending data without refreshing the page so we will send data through api  . forst we will collect data in FormaData() and send it through body in options parameter of fetch
+          */
+      });
+    </script>
+  </body>
+</html>

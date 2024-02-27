@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kitchen Diaries</title>
+    <style>
+        div{
+            margin: 20px;
+            align-items: center;
+        }
+
+        #semi_container{
+          
+          display: flex;
+          column-gap:100px;
+          margin-top: 0;
+          
+
+        }
+    </style>
+  </head>
+
+  <body>
+
+    
+    <script>
+      // logic is get all the data and display in a container , first lets get the data
+
+      async function recepiedata() {
+        const options = {
+          method: "GET",
+        };
+        let josn_data = await fetch("http://localhost:4000/api", options);
+        let data = await josn_data.json();
+       // console.log(data[0]); // Array of objects
+        displaydata(Object.values(data));
+      }
+      recepiedata();
+
+      const displaydata = (data) => {
+        
+        data.forEach((element) => {
+          console.log(element);
+          // make a container append it into a body and conatiner contains text -> image -> steps -> ingredients
+          let container = document.createElement("div");
+          container.setAttribute("id", "container");
+          container.style.display = "flex";
+          container.style.justifyContent = "center";
+          container.style.allignItems = "center";
+          container.style.flexDirection = "column";
+
+          //append text
+          let text = document.createTextNode(`${element.name}`);
+          container.append(text);
+
+          // append image
+          let image = new Image();
+          image.src = `${element.imageurl}`;
+          container.append(image);
+
+          // append ingrdients
+          // want to make small container that will append in main container
+          let heading = document.createTextNode("Ingredients");
+          container.append(heading);
+
+          let semi_container = document.createElement("div");
+          semi_container.setAttribute("id","semi_container")
+           element.ingredients.forEach((element) => {
+           
+           let text = document.createTextNode(`${element}`);
+          semi_container.append(text);
+
+          });
+          container.appendChild(semi_container)
+             
+             
+          // finally  append container into body
+          document.querySelector("body").appendChild(container);
+        });
+      };
+    </script>
+  </body>
+</html>

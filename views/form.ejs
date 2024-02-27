@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Form</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            row-gap: 20px;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f7f7f7;
+        }
+
+        form {
+            
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        form div {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 15px;
+        }
+
+        form label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        form input[type="text"],
+        form input[type="file"] {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 60%;
+        }
+
+        form button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        form button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <form id="recipeForm" method="post" enctype="multipart/form-data" action="/api/newrecepie">
+      <fieldset>
+        <div>
+            <label for="recipeName">Recipe Name</label>
+            <input type="text" id="recipeName" name="name" placeholder="Enter recipe name" required>
+        </div>
+        <div>
+            <label for="recipeImage">Recipe Image</label>
+            <input type="file" name="image" />
+        </div>
+        <button type="submit">Submit</button>
+      </fieldset>
+    </form>
+
+    <form id="ingredientsForm" method="post" enctype="multipart/form-data" action="/api/newrecepie/ingredients">
+        <div>
+            <label for="recipeIngredients">Recipe Ingredients</label>
+            <input type="file" id="recipeIngredients" name="ingre" accept=".txt,.csv" required>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+
+    <script>
+        const data = "<%= user %>";
+        console.log(data);
+        if (data) {
+            document.getElementById("recipeForm").style.display = "none";
+        }
+    </script>
+</body>
+</html>

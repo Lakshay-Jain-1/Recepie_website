@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Upload</title>
+  </head>
+  <!-- 
+    how to make post request using options in fetch ,
+    options ={
+        method:"post",
+        body:formdata,  // let formdata = new FormData()  formdata.append("image",url) 
+    }
+    just like this it is a correct way to upload image 
+   -->
+  <body>
+    <form id="uploadForm">
+      <input id="imageholder" type="file" accept="image/*" />
+      <input id="textholder" type="text" />
+      <label> Image</label>
+      <button id="put" type="submit">Submit</button>
+    </form>
+
+    <form id="uploadForm2ndway">
+      <input id="imageholder2" type="file" accept="image/*" />
+      <input id="textholder" type="text" />
+      <label> Image</label>
+      <button id="put" type="submit">Submit</button>
+    </form>
+    <script>
+      document
+        .getElementById("uploadForm")
+        .addEventListener("submit", async (event) => {
+          event.preventDefault();
+          let new_form = new FormData();
+          let image = document.getElementById("imageholder").files[0];
+          let name = document.getElementById("textholder").value;
+
+          new_form.append("image", image);
+          new_form.append("name", name);
+          console.log(new_form);
+          const options = {
+            method: "POST",
+            body: new_form,
+          };
+          await fetch("http://localhost:4000/api/put", options);
+        });
+
+        // but it is not uesd bcoz the url produced is too long , that is why we use formdata
+      document
+        .getElementById("uploadForm2ndway")
+        .addEventListener("submit", async (event) => {
+          event.preventDefault();
+
+          let image = document.getElementById("imageholder2").files[0];
+
+          let fileReader = new FileReader(); // sole purpose is to read a file
+
+          //fileReader.readAsText(image); // gives me text
+          fileReader.readAsDataURL(image); // it will give me url of the image
+
+          fileReader.onload = async function () {
+            console.log(fileReader.result);
+         
+            let name = document.getElementById("textholder").value;
+            let new_form = new FormData();
+            new_form.append("image", fileReader.result);
+            new_form.append("name", name);
+          
+            const options = {
+              method: "POST",
+              body: new_form,
+            };
+            await fetch("http://localhost:4000/api/put", options);
+          };
+
+          
+        });
+    </script>
+  </body>
+</html>

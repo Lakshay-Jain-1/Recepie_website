@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header>
+      <section class="wrapper nav-flex">
+        <nav>
+          <a href="#" class="logo">
+            <h1 class="section-name">RecipeHub</h1>
+          </a>
+        </nav>
+        <nav class="navigation">
+          <ul>
+            <li><a href="http://localhost:4000/api/newrecepie">Make your own recipe</a></li>
+           </ul>
+        </nav>
+        <!-- To reduce the complexity  -->
+        <!-- <nav class="login-area">
+          <button class="login"><a href="http://localhost:4000/login">LOGIN</a></button>
+          <button class="register"><a href="http://localhost:4000/rejister">REGISTER</a></button>
+        </nav> -->
+      </section>
+    </header>
+
+    <main>
+      <section class="jumbo">
+        <h1>what's cooking today?</h1>
+        <div class="search">
+          <input id="search" type="search" placeholder="find a recipe" />
+          <button onclick="find()" label="FIND">FIND</button>
+        </div>
+      </section>
+
+      <section class="wrapperproduct" style="display: flex; flex-direction: row; overflow: hidden;">
+        <div style="display: flex; flex-direction: column; z-index: 2; background-color: white;">
+        <h2 class="section-name">our delicious collections</h2>
+        <div style="display: flex; flex-direction: row-reverse; column-gap: 10px; justify-content: center; align-items: center;">
+        <button onclick="left()" type="button" style="width: 30px; height: 30px;"> &gt;  </button>
+        <button onclick="right()"  type="button" style="width: 30px; height: 30px;"> &lt;</button>
+        </div>
+        </div>
+        
+      </section>
+    </main>
+    <script>
+      function find(){
+        document.querySelectorAll(".card").forEach(ele=>{
+              if(ele.getAttribute("name_of_recepie").toLowerCase()==document.getElementById("search").value.toLowerCase()){
+                console.log("YES")
+              }else{
+                ele.style.display="none"  
+                setTimeout(()=>{
+                  ele.style.display="block"
+                },5000)
+              }
+        })
+        
+      }
+
+
+       let  distance =0
+      function left(){
+          document.querySelectorAll(".card").forEach(ele =>{
+            distance+=10;
+            ele.style.transform =`translateX(${distance}px)`
+          })
+      }
+      function right(){
+        document.querySelectorAll(".card").forEach(ele =>{
+            distance-=10;
+            ele.style.transform =`translateX(${distance}px)`
+          })
+      }
+    </script>
+
+    <script src="./recipie_1.js"></script>
+  </body>
+</html>
